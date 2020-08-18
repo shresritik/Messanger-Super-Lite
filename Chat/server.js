@@ -1,4 +1,5 @@
-const io = require('socket.io')(8000)
+// const io = require('socket.io')(8000)
+const io = require('socket.io')
 const users = {}
 io.on('connection', socket => {
     socket.on('new-user-joined', name => {
@@ -7,18 +8,19 @@ io.on('connection', socket => {
 
     });
     socket.on('send', message => {
-        socket.broadcast.emit('receive', { message: message, name: users[socket.id] });
+        socket.broadcast.emit('receive', {message: message, name: users[socket.id]});
+        console.log(message,name)
 
     })
     socket.on('typing', data => {
-        users[socket.id] = data;
-        socket.broadcast.emit('typing', data)
+      
+        socket.broadcast.emit('typing', {name:users[socket.id]})
     })
 
 
     console.log('a user connected');
     socket.on('disconnect', (message) => {
-        socket.broadcast.emit('left',users[socket.id])
+        socket.broadcast.emit('left',users[socket.id]);
 
         console.log('a user disconnected');
         delete users[socket.id]
