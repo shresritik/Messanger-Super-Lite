@@ -1,5 +1,4 @@
-// const socket = io('http://localhost:8000');
-const socket = io('https://fierce-earth-28305.herokuapp.com/ ');
+const socket = io('http://localhost:8000');
 
 let msgtxt = document.getElementById('text')
 let submit = document.getElementById('form')
